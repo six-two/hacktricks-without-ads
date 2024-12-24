@@ -1,4 +1,4 @@
-# Hachtricks Without Ads
+# Hacktricks Without Ads
 
 This repository contains scripts to deploy / host your own copy of the awesome [book.hacktricks.xyz](https://book.hacktricks.xyz/) website.
 It takes the code from <https://github.com/HackTricks-wiki/hacktricks> and builds a website using MkDocs.
