@@ -1,0 +1,8 @@
+hacktricks/
+hacktricks-master.zip
+master.zip
+
+venv/
+__pycache__
+*.pyc
+.DS_Store
