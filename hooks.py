@@ -10,21 +10,27 @@ def re_escape(text: str) -> str:
     return text
 
 def create_sponsor_ad_regex(image_name: str, domain: str) -> re.Pattern:
-    pattern_start = f'<figure><img src="[^"]*?/{re_escape(image_name)}"'
+    pattern_start = f'(<figure>)?<img src="[^"]*?{re_escape(image_name)}[^"]*"'
     # '.' does not match newlines. So to match any character we match everything except the end of a string ('$')
-    any_substring_shortest_choice = "[^$]*?"
+    # Scratch that, with re.DOTALL it should work
+    any_substring_shortest_choice = ".*?"
     pattern_end = '{% embed url="[^"]*?' + re_escape(domain) + '.*? %}'
-    return re.compile(pattern_start + any_substring_shortest_choice + pattern_end, re.MULTILINE)
+    return re.compile(pattern_start + any_substring_shortest_choice + pattern_end, re.MULTILINE | re.DOTALL)
 
 REMOVE_REGEX_LIST = [
     # Match the Learn AWS hacking banner at the top of all pages
-    re.compile(r'\{% hint style="success" %}[^$]{1,10}Learn &[^$]*?\{% endhint %}', re.MULTILINE),
+    re.compile(r'\{% hint style="success" %}.{1,10}Learn &.*?\{% endhint %}', re.MULTILINE | re.DOTALL),
+    # Special case for pentesting-web/ssti-server-side-template-injection/README.md, where there is a weird malformed link there
+    re.compile(r'\{% hint style="success" %}.{1,10}\[https://[^\]]*\]\([^\)]*\)Learn &.*?\{% endhint %}', re.MULTILINE | re.DOTALL),
     # Remove the ads for a lot of the sponsors
-    create_sponsor_ad_regex("pentest-tools.svg", "pentest-tools.com"),
-    create_sponsor_ad_regex("image (48).png", "trickest.com"),
-    create_sponsor_ad_regex("image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png", "stmcyber.com"),
-    # create_sponsor_ad_regex("https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com", "rootedcon.com"),
-    # create_sponsor_ad_regex("i3.png", "intigriti.com"),
+    create_sponsor_ad_regex("/pentest-tools.svg", "pentest-tools.com"),
+    create_sponsor_ad_regex("/image (48).png", "trickest.com"),
+    create_sponsor_ad_regex("/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png", "stmcyber.com"),
+    create_sponsor_ad_regex("https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-L_2uGJGU7AVNRcqRvEi%2Fuploads%2FelPCTwoecVdnsfjxCZtN%2Fimage.png", "rootedcon.com"),
+    create_sponsor_ad_regex("/image (641).png", "rootedcon.com"),
+    create_sponsor_ad_regex("/i3.png", "intigriti.com"),
+    # Hackenproof does not have the embed link at the end, but instead `**Join us on** [**Discord**](https://discord.com/invite/N3FrSbmwdy) and start collaborating with top hackers today!`
+    re.compile(f'<figure><img src="[^"]*?{re_escape("/image (3).png")}[^"]*".*?{re_escape("N3FrSbmwdy) and start collaborating with top hackers today!")}', re.MULTILINE | re.DOTALL),
 
 ]
 REPLACE_AD_WITH = "\n\n[AD REMOVED]\n\n"
