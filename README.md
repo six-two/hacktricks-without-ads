@@ -49,3 +49,9 @@ To build it yourself:
 Because the ads get in the way too much.
 The [enshittification](https://en.wikipedia.org/wiki/Enshittification) is so bad that even the `LICENSE.md` file in their repository has four huge ad images you need to scroll past.
 Since the wiki is open source, under a license which I interpret as allowing this type of site (I make no profit and thus am non-commercial), and I already use MkDocs a lot, I decided to try this little project.
+
+## TODOs
+
+- Finish regexes for all corporate sponsors (see index page)
+- Deploy with vercel
+- Improved wikibooks handling (embed, etc)

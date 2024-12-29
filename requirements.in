@@ -1,3 +1,4 @@
 mkdocs
 mkdocs-material
 mkdocs-extract-listings-plugin
+git+https://github.com/pledra/gitbook2mkdocs

@@ -8,8 +8,13 @@ theme:
   features:
   - content.code.copy
 
+plugins:
+- search
+- gitbook2mkdocs
+
 hooks:
-- hooks.py
+- remove_ads.py
+# - gitbook.py
 
 # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/
 markdown_extensions:

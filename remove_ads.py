@@ -1,6 +1,14 @@
 #!/usr/bin/python3
 import re
+# pip
+try:
+    from mkdocs.plugins import event_priority
+except Exception:
+    print("[-] Failed to load event_priority function")
 
+    # Create empty wrapper
+    def event_priority(fn, *args, **kwargs):
+        return fn
 
 def re_escape(text: str) -> str:
     # re.escape also escapes characters like '-', which should not be escaped.
@@ -31,6 +39,8 @@ REMOVE_REGEX_LIST = [
     create_sponsor_ad_regex("/i3.png", "intigriti.com"),
     # Hackenproof does not have the embed link at the end, but instead `**Join us on** [**Discord**](https://discord.com/invite/N3FrSbmwdy) and start collaborating with top hackers today!`
     re.compile(f'<figure><img src="[^"]*?{re_escape("/image (3).png")}[^"]*".*?{re_escape("N3FrSbmwdy) and start collaborating with top hackers today!")}', re.MULTILINE | re.DOTALL),
+    # Animated ads are the worst:
+    create_sponsor_ad_regex("/RENDER_WebSec_10fps_21sec_9MB_29042024.gif", "websec.nl"),
 
 ]
 REPLACE_AD_WITH = "\n\n[AD REMOVED]\n\n"
@@ -41,6 +51,7 @@ regex_use_counter: dict[re.Pattern, int] = {}
 def on_pre_build(config) -> None:
     reset_counters()
 
+@event_priority(70) # run this before all other plugins
 def on_page_markdown(markdown: str, page, config, files) -> str:
     return remove_ads(markdown)
 
