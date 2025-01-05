@@ -10,7 +10,7 @@ beautifulsoup4==4.12.3
     # via mkdocs-extract-listings-plugin
 certifi==2024.12.14
     # via requests
-charset-normalizer==3.4.0
+charset-normalizer==3.4.1
     # via requests
 click==8.1.8
     # via mkdocs
@@ -18,6 +18,8 @@ colorama==0.4.6
     # via mkdocs-material
 ghp-import==2.1.0
     # via mkdocs
+gitbook2mkdocs @ git+https://github.com/pledra/gitbook2mkdocs
+    # via -r requirements.in
 idna==3.10
     # via requests
 importlib-metadata==8.5.0
@@ -45,6 +47,7 @@ mergedeep==1.3.4
 mkdocs==1.6.1
     # via
     #   -r requirements.in
+    #   gitbook2mkdocs
     #   mkdocs-extract-listings-plugin
     #   mkdocs-material
 mkdocs-extract-listings-plugin==0.2.0
@@ -63,9 +66,9 @@ pathspec==0.12.1
     # via mkdocs
 platformdirs==4.3.6
     # via mkdocs-get-deps
-pygments==2.18.0
+pygments==2.19.0
     # via mkdocs-material
-pymdown-extensions==10.12
+pymdown-extensions==10.13
     # via mkdocs-material
 python-dateutil==2.9.0.post0
     # via ghp-import
