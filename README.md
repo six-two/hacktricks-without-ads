@@ -5,11 +5,11 @@ It takes the code from <https://github.com/HackTricks-wiki/hacktricks> and build
 My MkDocs config uses custom hooks, that remove advertisements before the page is built.
 Since the markup used is not 100% compatible with MkDocs, there are some graphical errors in the resulting page.
 
-<!-- Also added is a search function (@TODO). -->
+Additionally I have added a search for code listings at the bottom of the index page.
 
 ## Usage
 
-You can find a version hosted by Vercal at TBD.
+You can find a version hosted by Vercal at <https://hacktricks-without-ads.vercel.app/>.
 
 To build it yourself:
 
@@ -53,5 +53,5 @@ Since the wiki is open source, under a license which I interpret as allowing thi
 ## TODOs
 
 - Finish regexes for all corporate sponsors (see index page)
-- Deploy with vercel
 - Improved wikibooks handling (embed, etc)
+    - Alternatively figure out how gitbook works

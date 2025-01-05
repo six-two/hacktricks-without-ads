@@ -42,6 +42,8 @@ REMOVE_REGEX_LIST = [
     # Animated ads are the worst:
     create_sponsor_ad_regex("/RENDER_WebSec_10fps_21sec_9MB_29042024.gif", "websec.nl"),
 
+    # There are different hacktricks training banners?
+    re.compile(r'\{\{#include .*/banners/hacktricks-training.md}}'),
 ]
 REPLACE_AD_WITH = "\n\n[AD REMOVED]\n\n"
 regex_use_counter: dict[re.Pattern, int] = {}

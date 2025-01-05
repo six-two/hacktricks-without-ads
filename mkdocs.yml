@@ -1,6 +1,6 @@
 site_name: HackTricks Without Ads
 
-docs_dir: hacktricks # you can disable/remove this for faster testing
+docs_dir: hacktricks/src # you can disable/remove this for faster testing
 
 theme:
   name: material
