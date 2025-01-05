@@ -11,6 +11,10 @@ theme:
 plugins:
 - search
 - gitbook2mkdocs
+- extract_listings:
+    search_page_path: README.md
+    search_page_create_if_missing: True
+    javascript_search_file: assets/javascript/code-snippet-search.js
 
 hooks:
 - remove_ads.py
@@ -29,3 +33,6 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  # for todo lists
+  - pymdownx.tasklist:
+      custom_checkbox: true

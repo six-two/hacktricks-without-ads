@@ -2,6 +2,9 @@
 # Not sure which one of these two is faster:
 # curl https://github.com/HackTricks-wiki/hacktricks/archive/refs/heads/master.zip -o master.zip
 
+# Change into the project root
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )"
+
 if [[ -d hacktricks ]]; then
     echo "[*] Updating hacktricks"
     git -C hacktricks pull
@@ -10,11 +13,17 @@ else
     git clone https://github.com/HackTricks-wiki/hacktricks.git
 fi
 
-# Use venv if it exists
-if [[ -d venv ]]; then
-    echo "[*] Using python venv"
+# If you created a virtual python environment, source it
+if [[ -f venv/bin/activate ]]; then
+    echo "[*] Using virtual python environment"
     source venv/bin/activate
 fi
 
 mkdocs build
-# python3 -m http.server -d site
+
+if [[ -z "$1" ]]; then
+    echo "[*] To view the site run:"
+    echo python3 -m http.server --directory "'$PWD/site/'"
+else
+    python3 -m http.server --directory site/ "$1"
+fi
